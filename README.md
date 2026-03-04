@@ -1,7 +1,3 @@
-以下是为你的项目 `freel00p-colored-logger` 推荐的 README.md 内容，结构清晰、包含常用信息，适合大多数 Python 开源日志工具包。
-
-你可以直接复制这个内容到项目的 README.md 文件中，然后根据实际情况微调（比如添加截图、修改示例等）。
-
 ```markdown
 # freel00p-colored-logger
 

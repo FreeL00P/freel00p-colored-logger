@@ -116,27 +116,3 @@ Copyright (c) 2025 FreeL00P
 
 详见 [LICENSE](LICENSE) 文件。
 
-
-### 建议后续可以添加的元素
-
-1. **控制台彩色截图**（强烈推荐）
-   - 运行你的 test_logger.py，把控制台输出截图
-   - 上传到仓库的 `images/` 文件夹
-   - 在 README 加入：
-
-     ```markdown
-     ## 控制台效果预览
-
-     ![控制台彩色日志输出](images/console-output.png)
-     ```
-
-2. **PyPI 下载徽章**
-   在 README 最上面加：
-
-   ```markdown
-   [![PyPI version](https://badge.fury.io/py/freel00p-colored-logger.svg)](https://badge.fury.io/py/freel00p-colored-logger)
-   [![Python versions](https://img.shields.io/pypi/pyversions/freel00p-colored-logger.svg)](https://pypi.org/project/freel00p-colored-logger/)
-   ```
-
-
-

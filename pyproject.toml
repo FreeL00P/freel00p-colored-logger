@@ -1,0 +1,29 @@
+[build-system]
+requires = ["hatchling >=1.26"]
+build-backend = "hatchling.build"
+
+[project]
+name = "freel00p-colored-logger"
+dynamic = ["version"]
+description = "Simple ANSI-colored console logger with optional file output"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+authors = [{name = "FreeL00P", email = "freeloop0902@gmail.com"}]   # 改成你的
+keywords = ["logging", "colored", "ansi", "console"]
+
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: System :: Logging",
+]
+
+[project.urls]
+Homepage = "https://github.com/FreeL00P/freel00p-colored-logger"
+
+[tool.hatch.version]
+path = "src/freel00p_colored_logger/__init__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/freel00p_colored_logger"]

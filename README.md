@@ -1,4 +1,4 @@
-```markdown
+
 # freel00p-colored-logger
 
 一个极简、轻量的 Python 日志工具，提供：

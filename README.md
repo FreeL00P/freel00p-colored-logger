@@ -20,9 +20,11 @@ logger = get_logger(
     log_file="logs/pymupdf.log",
     file_level=logging.DEBUG   # 檔案記錄更細
 )
-
+```bash
 logger.info("開始處理...")
 logger.warning("有警告！")
 logger.error("出錯了", exc_info=True)
+
+```
 
 

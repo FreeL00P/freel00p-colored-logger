@@ -9,7 +9,7 @@ description = "Simple ANSI-colored console logger with optional file output"
 readme = "README.md"
 requires-python = ">=3.8"
 license = {text = "MIT"}
-authors = [{name = "FreeL00P", email = "freeloop0902@gmail.com"}]   # 改成你的
+authors = [{name = "FreeL00P"}]   # 改成你的
 keywords = ["logging", "colored", "ansi", "console"]
 
 classifiers = [

@@ -11,6 +11,7 @@
 ## 特性
 
 - 彩色控制台输出（时间戳蓝色、INFO 绿色、WARNING 黄色、ERROR 红色、CRITICAL 紫色）
+- 支持显示线程名（可关闭）
 - 支持自定义日志名称、级别、文件路径
 - 自动创建日志文件所在目录
 - 防止重复添加 handler（适合 Jupyter、多模块使用）
@@ -44,9 +45,9 @@ logger.error("文件读取失败", exc_info=True)
 
 输出示例（控制台彩色效果）：
 ```
-2025-03-04 18:45:23 [INFO] 开始处理数据...
-2025-03-04 18:45:24 [WARNING] 内存使用率较高
-2025-03-04 18:45:25 [ERROR] 文件读取失败
+2025-03-04 18:45:23 [INFO] [MainThread] 开始处理数据...
+2025-03-04 18:45:24 [WARNING] [MainThread] 内存使用率较高
+2025-03-04 18:45:25 [ERROR] [MainThread] 文件读取失败
 Traceback (most recent call last): ...
 ```
 
@@ -72,7 +73,8 @@ get_logger(
     log_file: str | Path | None = None,     # 文件路径，None 则不写文件
     file_level: int | str = logging.DEBUG,  # 文件最低级别
     datefmt: str = "%Y-%m-%d %H:%M:%S",     # 时间格式
-    propagate: bool = False                 # 是否向上传播（通常设为 False）
+    propagate: bool = False,                # 是否向上传播（通常设为 False）
+    show_thread: bool = True                # 是否显示线程名
 ) -> logging.Logger
 ```
 

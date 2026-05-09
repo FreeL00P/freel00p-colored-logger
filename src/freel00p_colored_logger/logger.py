@@ -4,26 +4,36 @@ from pathlib import Path
 from typing import Optional
 
 # ANSI 顏色定義（你原來的配色）
-TIMESTAMP_COLOR = "\033[94m"   # 亮藍
+TIMESTAMP_COLOR = "\033[94m"  # 亮藍
 LEVEL_COLORS = {
-    "DEBUG":    "\033[94m",
-    "INFO":     "\033[92m",
-    "WARNING":  "\033[93m",
-    "ERROR":    "\033[91m",
+    "DEBUG": "\033[94m",
+    "INFO": "\033[92m",
+    "WARNING": "\033[93m",
+    "ERROR": "\033[91m",
     "CRITICAL": "\033[95m",
 }
-MESSAGE_COLOR = "\033[97m"     # 亮白
+MESSAGE_COLOR = "\033[97m"  # 亮白
+THREAD_COLOR = "\033[37m"  # 灰色
 RESET = "\033[0m"
 
 
 class TimestampLevelColoredFormatter(logging.Formatter):
     """控制台專用：時間戳 + 級別 彩色格式"""
 
+    def __init__(self, show_thread: bool = True, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.show_thread = show_thread
+
     def format(self, record):
         ts = self.formatTime(record, self.datefmt or "%Y-%m-%d %H:%M:%S")
         timestamp = f"{TIMESTAMP_COLOR}{ts}{RESET}"
-        level_colored = f"{LEVEL_COLORS.get(record.levelname, '')}[{record.levelname}]{RESET}"
+        level_colored = (
+            f"{LEVEL_COLORS.get(record.levelname, '')}[{record.levelname}]{RESET}"
+        )
         msg_colored = f"{MESSAGE_COLOR}{record.getMessage()}{RESET}"
+        if self.show_thread:
+            thread = f"{THREAD_COLOR}[{record.threadName}]{RESET}"
+            return f"{timestamp} {level_colored} {thread} {msg_colored}"
         return f"{timestamp} {level_colored} {msg_colored}"
 
 
@@ -34,6 +44,7 @@ def get_logger(
     file_level: int = logging.DEBUG,
     datefmt: str = "%Y-%m-%d %H:%M:%S",
     propagate: bool = False,
+    show_thread: bool = True,
 ) -> logging.Logger:
     """
     取得一個彩色控制台 + 可選檔案輸出的 logger。
@@ -50,7 +61,9 @@ def get_logger(
     # 控制台 - 彩色
     ch = logging.StreamHandler(sys.stdout)
     ch.setLevel(level)
-    ch.setFormatter(TimestampLevelColoredFormatter(datefmt=datefmt))
+    ch.setFormatter(
+        TimestampLevelColoredFormatter(show_thread=show_thread, datefmt=datefmt)
+    )
     logger.addHandler(ch)
 
     # 檔案 - 純文字（可選）
@@ -61,8 +74,10 @@ def get_logger(
         fh.setLevel(file_level)
         fh.setFormatter(
             logging.Formatter(
-                "%(asctime)s [%(levelname)-8s] %(message)s",
-                datefmt="%Y-%m-%d %H:%M:%S"
+                "%(asctime)s [%(levelname)-8s] [%(threadName)s] %(message)s"
+                if show_thread
+                else "%(asctime)s [%(levelname)-8s] %(message)s",
+                datefmt="%Y-%m-%d %H:%M:%S",
             )
         )
         logger.addHandler(fh)
